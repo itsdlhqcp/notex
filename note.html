@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note Marks - Project Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --bg-light: #ffffff;
+            --bg-gray: #f9fafb;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-gray);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: white;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 0 20px;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: block;
+        }
+
+        nav a:hover {
+            background: var(--bg-gray);
+            color: var(--primary);
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .section h3 {
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .section h4 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info-card {
+            background: var(--bg-gray);
+            padding: 20px;
+            border-radius: 6px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .credentials {
+            background: #fef3c7;
+            border-left-color: var(--warning);
+        }
+
+        .warning-card {
+            background: #fee2e2;
+            border-left-color: var(--danger);
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #dc2626;
+        }
+
+        pre {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tech-item {
+            background: var(--bg-gray);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid var(--success);
+        }
+
+        .tech-item strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            overflow-x: auto;
+            display: block;
+        }
+
+        table thead {
+            background: var(--primary);
+            color: white;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid var(--border);
+        }
+
+        table tbody tr:nth-child(even) {
+            background: var(--bg-gray);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+        }
+
+        .badge-primary {
+            background: #dbeafe;
+            color: var(--primary-dark);
+        }
+
+        .badge-success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 45px;
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        footer {
+            background: var(--text-primary);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .section {
+                padding: 20px 15px;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .section h3 {
+                font-size: 1.2rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            nav a {
+                padding: 10px 15px;
+            }
+
+            .tech-stack {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            table th,
+            table td {
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .section h2 {
+                font-size: 1.3rem;
+            }
+
+            pre {
+                padding: 15px;
+                font-size: 0.85rem;
+            }
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📚 Note Marks</h1>
+            <p>Complete Project Documentation & Architecture Guide</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#credentials">Credentials</a></li>
+                <li><a href="#tech-stack">Tech Stack</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#authentication">Authentication</a></li>
+                <li><a href="#data-model">Data Model</a></li>
+                <li><a href="#crud">CRUD Operations</a></li>
+                <li><a href="#realtime">Real-time Sync</a></li>
+                <li><a href="#hardest-parts">Hardest Parts</a></li>
+                <li><a href="#demo">Demo Script</a></li>
+            </ul>
+        </nav>
+
+        <!-- Overview Section -->
+        <section id="overview" class="section">
+            <h2>What Is Note Marks?</h2>
+            <div class="info-card">
+                <p><strong>Note Marks</strong> is a modern web application for managing bookmarks with real-time synchronization across devices and browser tabs.</p>
+            </div>
+            <ul>
+                <li>Users sign in with Google OAuth</li>
+                <li>Add, edit, and delete bookmarks with ease</li>
+                <li>Real-time sync across browser tabs and devices</li>
+                <li>Support for light/dark theme preferences</li>
+                <li>Network status monitoring with offline detection</li>
+            </ul>
+        </section>
+
+        <!-- Credentials Section -->
+        <section id="credentials" class="section">
+            <h2>🔐 Credentials & Configuration</h2>
+            <div class="warning-card">
+                <strong>⚠️ Security Notice:</strong> These credentials should be stored securely and never committed to public repositories.
+            </div>
+            
+            <h3>Supabase Credentials</h3>
+            <div class="info-card credentials">
+                <p><strong>Email:</strong> <code>homecontent35@gmail.com</code></p>
+                <p><strong>Password:</strong> <code>#Rr9;iGC&4F>fAa</code></p>
+                <p><strong>URL:</strong> <code>https://ehbszrtroztklynotbpd.supabase.co</code></p>
+                <p><strong>Publishable Key:</strong> <code>sb_publishable_KMfi6YHQCF4p9Qo4Ugxq5A_ksrG99Ii</code></p>
+            </div>
+
+            <h3>Google OAuth Credentials</h3>
+            <div class="info-card credentials">
+                <p><strong>Client ID:</strong><br>
+                <code>604280261234-c9dodqli2a2ugkpmlduvkq5udi9rlm42.apps.googleusercontent.com</code></p>
+                <p><strong>Client Secret:</strong> <code>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</code></p>
+            </div>
+        </section>
+
+        <!-- Development Tools Section -->
+        <section id="tools" class="section">
+            <h2>🛠️ Development Tools Used</h2>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <strong>v0</strong>
+                    <p>Logo creation and design assets</p>
+                </div>
+                <div class="tech-item">
+                    <strong>Cursor</strong>
+                    <p>Code writing through architectural planning</p>
+                </div>
+                <div class="tech-item">
+                    <strong>GitHub Copilot</strong>
+                    <p>Autocomplete, function generation, API logic, and boilerplate code</p>
+                </div>
+                <div class="tech-item">
+                    <strong>Claude</strong>
+                    <p>Sign-in page design generation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Stack Section -->
+        <section id="tech-stack" class="section">
+            <h2>💻 Tech Stack</h2>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <strong>Next.js 16</strong>
+                    <p>App Router, file-based routing, middleware</p>
+                </div>
+                <div class="tech-item">
+                    <strong>React 19</strong>
+                    <p>UI components and hooks</p>
+                </div>
+                <div class="tech-item">
+                    <strong>Tailwind CSS 4</strong>
+                    <p>Styling and responsive layout</p>
+                </div>
+                <div class="tech-item">
+                    <strong>TypeScript 5</strong>
+                    <p>Type safety and better developer experience</p>
+                </div>
+                <div class="tech-item">
+                    <strong>Supabase</strong>
+                    <p>PostgreSQL, Auth (Google OAuth), Realtime, PostgREST</p>
+                </div>
+                <div class="tech-item">
+                    <strong>@supabase/ssr</strong>
+                    <p>Supabase clients for Next.js (browser, server, middleware)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section id="architecture" class="section">
+            <h2>🏗️ Architecture Overview</h2>
+            <h3>Client-First Approach</h3>
+            <p>Most logic runs in the browser, with Supabase handling the backend infrastructure.</p>
+
+            <h3>Three Supabase Clients</h3>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <strong>Browser Client</strong>
+                    <p><code>lib/supabase/client.ts</code> - Used in components for auth and data operations</p>
+                </div>
+                <div class="tech-item">
+                    <strong>Server Client</strong>
+                    <p><code>lib/supabase/server.ts</code> - Used in route handlers (e.g., auth callback)</p>
+                </div>
+                <div class="tech-item">
+                    <strong>Middleware Client</strong>
+                    <p><code>lib/supabase/middleware.ts</code> - Refreshes session on each request</p>
+                </div>
+            </div>
+
+            <h3>Key Features</h3>
+            <ul>
+                <li><strong>Route Groups:</strong> <code>(dashboard)</code> groups <code>/</code> and <code>/settings</code> under one layout</li>
+                <li><strong>Contexts:</strong> AuthProvider for user state, ThemeProvider for theme management</li>
+                <li><strong>Dual Sync:</strong> Supabase Realtime for cross-device, BroadcastChannel for same-browser tabs</li>
+            </ul>
+        </section>
+
+        <!-- Authentication Section -->
+        <section id="authentication" class="section">
+            <h2>🔑 Authentication Flow</h2>
+            <ol class="step-list">
+                <li>User clicks "Continue with Google" on the login page</li>
+                <li><code>AuthContext.signInWithGoogle()</code> calls <code>supabase.auth.signInWithOAuth({ provider: "google" })</code></li>
+                <li>Supabase redirects to Google for consent</li>
+                <li>Google redirects to <code>/auth/callback?code=...</code></li>
+                <li><code>app/auth/callback/route.ts</code> runs on the server</li>
+                <li>Creates a Supabase server client with <code>cookies()</code></li>
+                <li>Calls <code>supabase.auth.exchangeCodeForSession(code)</code> to create a session</li>
+                <li>Supabase sets auth cookies via the <code>setAll</code> callback</li>
+                <li>Returns HTML redirect to <code>/</code> (or the <code>next</code> parameter)</li>
+                <li><code>AuthContext</code> listens with <code>onAuthStateChange</code></li>
+                <li>When session is set, <code>user</code> is updated and dashboard renders</li>
+                <li><strong>Middleware</strong> runs on every request, calls <code>getUser()</code> to refresh session and update cookies</li>
+            </ol>
+        </section>
+
+        <!-- Data Model Section -->
+        <section id="data-model" class="section">
+            <h2>📊 Data Model - Bookmark</h2>
+            <h3>Table: <code>public.bookmarks</code></h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Column</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>id</code></td>
+                        <td>UUID</td>
+                        <td>Primary key, auto-generated</td>
+                    </tr>
+                    <tr>
+                        <td><code>user_id</code></td>
+                        <td>UUID</td>
+                        <td>References <code>auth.users(id)</code>, ON DELETE CASCADE</td>
+                    </tr>
+                    <tr>
+                        <td><code>url</code></td>
+                        <td>Text</td>
+                        <td>Required bookmark URL</td>
+                    </tr>
+                    <tr>
+                        <td><code>title</code></td>
+                        <td>Text</td>
+                        <td>Required bookmark title</td>
+                    </tr>
+                    <tr>
+                        <td><code>created_at</code></td>
+                        <td>Timestamp</td>
+                        <td>Default <code>now()</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Security & Performance</h3>
+            <div class="info-card">
+                <p><strong>Index:</strong> <code>bookmarks_user_id_idx</code> on <code>user_id</code> for fast lookups</p>
+            </div>
+
+            <h3>Row Level Security (RLS) Policies</h3>
+            <ul>
+                <li><strong>SELECT:</strong> <code>auth.uid() = user_id</code></li>
+                <li><strong>INSERT:</strong> <code>auth.uid() = user_id</code></li>
+                <li><strong>UPDATE:</strong> <code>auth.uid() = user_id</code></li>
+                <li><strong>DELETE:</strong> <code>auth.uid() = user_id</code></li>
+            </ul>
+
+            <h3>Realtime Configuration</h3>
+            <div class="info-card">
+                <p>Table uses <code>REPLICA IDENTITY FULL</code> and is in the <code>supabase_realtime</code> publication</p>
+            </div>
+        </section>
+
+        <!-- CRUD Operations Section -->
+        <section id="crud" class="section">
+            <h2>✏️ Bookmark CRUD Operations</h2>
+            
+            <h3>Add Bookmark</h3>
+            <ol class="step-list">
+                <li>User submits the form in <code>AddBookmarkForm</code></li>
+                <li>Form validates URL (http/https) and non-empty title</li>
+                <li><code>onSubmit(url, title)</code> calls <code>useBookmarks.addBookmark()</code></li>
+                <li><code>addBookmark</code> inserts <code>{ user_id, url, title }</code> into <code>bookmarks</code></li>
+                <li>On success: new row is appended to local state; <code>broadcastBookmarksChanged()</code> is called</li>
+                <li>Other tabs receive the BroadcastChannel message and refetch</li>
+            </ol>
+
+            <h3>Update Bookmark</h3>
+            <ol class="step-list">
+                <li>User clicks edit on a bookmark in <code>BookmarkList</code></li>
+                <li><code>EditBookmarkModal</code> opens with current url and title</li>
+                <li>User edits and clicks Save</li>
+                <li><code>onUpdate(id, url, title)</code> calls <code>useBookmarks.updateBookmark()</code></li>
+                <li><code>updateBookmark</code> runs <code>update().eq('id', id)</code></li>
+                <li>On success: local state is updated; <code>broadcastBookmarksChanged()</code> is called</li>
+            </ol>
+
+            <h3>Delete Bookmark</h3>
+            <ol class="step-list">
+                <li>User clicks delete on a bookmark</li>
+                <li>A confirmation modal appears</li>
+                <li>User confirms</li>
+                <li><code>useBookmarks.deleteBookmark()</code> removes the item from local state immediately (optimistic)</li>
+                <li>It then calls <code>delete().eq('id', id)</code></li>
+                <li>On success: <code>broadcastBookmarksChanged()</code> is called</li>
+                <li>On error: <code>fetchBookmarks()</code> is called to restore the list</li>
+            </ol>
+        </section>
+
+        <!-- Real-time Sync Section -->
+        <section id="realtime" class="section">
+            <h2>⚡ Real-Time Synchronization</h2>
+            
+            <h3>Supabase Realtime</h3>
+            <ul>
+                <li><code>useBookmarks</code> subscribes to <code>postgres_changes</code> on <code>bookmarks</code></li>
+                <li>Filter: <code>user_id=eq.{userId}</code></li>
+                <li>On INSERT, UPDATE, or DELETE, the callback runs</li>
+                <li>Callback calls <code>fetchBookmarksRef.current()</code> to refetch</li>
+            </ul>
+
+            <h3>BroadcastChannel</h3>
+            <ul>
+                <li>Channel name: <code>note-marks-bookmarks-sync</code></li>
+                <li>After add/update/delete, <code>broadcastBookmarksChanged()</code> posts <code>{ type: "bookmarks-changed", userId }</code></li>
+                <li>Other tabs listen and call <code>fetchBookmarksRef.current()</code> on message</li>
+            </ul>
+
+            <div class="info-card">
+                <p><strong>Ref Pattern:</strong> <code>fetchBookmarksRef</code> holds the latest <code>fetchBookmarks</code> so Realtime and BroadcastChannel callbacks always use the current function</p>
+            </div>
+        </section>
+
+        <!-- Hardest Parts Section -->
+        <section id="hardest-parts" class="section">
+            <h2>🔥 Hardest Parts to Implement</h2>
+            
+            <h3>1. Dual Sync (Realtime + BroadcastChannel)</h3>
+            <p><strong>File:</strong> <code>hooks/useBookmarks.ts</code></p>
+            <ul>
+                <li>Subscribing to Supabase Realtime <code>postgres_changes</code> with a <code>user_id</code> filter</li>
+                <li>Using BroadcastChannel for cross-tab sync in the same browser</li>
+                <li>Using <code>fetchBookmarksRef</code> so callbacks always call the latest <code>fetchBookmarks</code> and avoid stale closures</li>
+                <li>Making sure both Realtime and BroadcastChannel trigger refetches without duplicate work or race conditions</li>
+            </ul>
+
+            <h3>2. Supabase Auth + Next.js App Router</h3>
+            <p><strong>Files:</strong> <code>lib/supabase/*</code>, <code>middleware.ts</code>, <code>app/auth/callback/route.ts</code></p>
+            <ul>
+                <li>Different Supabase clients for browser, server, and middleware</li>
+                <li>Correct cookie handling with <code>getAll/setAll</code> and Next.js <code>cookies()</code></li>
+                <li>Middleware session refresh on each request</li>
+                <li>OAuth callback route exchanging the code for a session and setting cookies</li>
+                <li>Handling <code>setAll</code> when called from Server Components (where it can't set cookies)</li>
+            </ul>
+
+            <h3>3. Replica Identity for Realtime</h3>
+            <p><strong>File:</strong> <code>supabase/migrations/20250216000002_enable_bookmarks_realtime.sql</code></p>
+            <ul>
+                <li><code>REPLICA IDENTITY FULL</code> is needed so DELETE/UPDATE events include full row data</li>
+                <li>Without it, Realtime filters (e.g., <code>user_id=eq.X</code>) can fail for UPDATE/DELETE</li>
+                <li>This is a non-obvious Supabase/Postgres requirement</li>
+            </ul>
+
+            <h3>4. Theme Flash Prevention</h3>
+            <p><strong>File:</strong> <code>app/layout.tsx</code></p>
+            <ul>
+                <li>Inline script that runs before paint to read localStorage and set the theme class</li>
+                <li>Avoiding a visible flash when switching between light/dark before React hydrates</li>
+            </ul>
+
+            <h3>5. Optimistic Delete with Rollback</h3>
+            <p><strong>File:</strong> <code>hooks/useBookmarks.ts</code> (<code>deleteBookmark</code>)</p>
+            <ul>
+                <li>Removing the bookmark from state immediately, then calling the API</li>
+                <li>If the delete fails, refetching to restore the correct list</li>
+                <li>Keeping UI and server state consistent in error cases</li>
+            </ul>
+        </section>
+
+        <!-- Additional Features Section -->
+        <section id="features" class="section">
+            <h2>🎨 Additional Features</h2>
+            
+            <h3>Theme Management</h3>
+            <ol class="step-list">
+                <li>Theme values: <code>"light"</code> or <code>"dark"</code></li>
+                <li>Stored in localStorage under <code>note-marks-theme</code></li>
+                <li>Root layout injects an inline script that runs before paint</li>
+                <li>Reads <code>localStorage.getItem('note-marks-theme')</code></li>
+                <li>Adds <code>dark</code> class to <code>document.documentElement</code> when theme is dark</li>
+                <li><code>ThemeContext</code> initializes from localStorage on mount</li>
+                <li><code>toggleTheme</code> updates state, document class, and localStorage</li>
+            </ol>
+
+            <h3>Network Status Monitoring</h3>
+            <ol class="step-list">
+                <li><code>NetworkStatus</code> component runs in the root layout</li>
+                <li>Listens to <code>window</code> <code>online</code> and <code>offline</code> events</li>
+                <li>Listens to <code>navigator.connection</code> <code>change</code> (when available)</li>
+                <li>Checks <code>navigator.onLine</code> → offline if false</li>
+                <li>Checks <code>navigator.connection.effectiveType</code> → slow if <code>slow-2g</code>, <code>2g</code>, or <code>3g</code></li>
+                <li>When not online: shows a banner (red for offline, amber for slow)</li>
+                <li>Banner includes a link to <code>/network-slow</code> with connection tips</li>
+            </ol>
+        </section>
+
+        <!-- Routing Section -->
+        <section id="routing" class="section">
+            <h2>🗺️ Routing & Layouts</h2>
+            
+            <h3>Root Layout</h3>
+            <p><code>app/layout.tsx</code></p>
+            <ul>
+                <li>Theme script in <code>&lt;head&gt;</code></li>
+                <li>ThemeProvider → AuthProvider → NetworkStatus → children</li>
+                <li>Geist fonts, Tailwind base styles</li>
+            </ul>
+
+            <h3>Dashboard Layout</h3>
+            <p><code>app/(dashboard)/layout.tsx</code></p>
+            <ul>
+                <li>If not logged in and path ≠ <code>/</code> → redirect to <code>/</code></li>
+                <li>If loading → spinner</li>
+                <li>If logged in → AppShell (Header + Sidebar + main) wrapping children</li>
+            </ul>
+
+            <h3>Routes</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Route</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>/</code></td>
+                        <td>Login or DashboardContent (bookmarks)</td>
+                    </tr>
+                    <tr>
+                        <td><code>/settings</code></td>
+                        <td>Theme toggle</td>
+                    </tr>
+                    <tr>
+                        <td><code>/network-slow</code></td>
+                        <td>Connection tips</td>
+                    </tr>
+                    <tr>
+                        <td><code>/auth/callback</code></td>
+                        <td>OAuth code exchange (no UI)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Components Section -->
+        <section id="components" class="section">
+            <h2>🧩 Key Components</h2>
+            
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <strong>AppShell</strong>
+                    <p>Header, Sidebar, main area; manages sidebar open/close</p>
+                </div>
+                <div class="tech-item">
+                    <strong>Header</strong>
+                    <p>Logo, menu toggle, user email</p>
+                </div>
+                <div class="tech-item">
+                    <strong>Sidebar</strong>
+                    <p>Nav (Dashboard, Settings), Logout with confirmation</p>
+                </div>
+                <div class="tech-item">
+                    <strong>AddBookmarkForm</strong>
+                    <p>URL and title inputs, validation, submit</p>
+                </div>
+                <div class="tech-item">
+                    <strong>BookmarkList</strong>
+                    <p>List of bookmarks, edit modal, delete modal</p>
+                </div>
+                <div class="tech-item">
+                    <strong>LoginBackground</strong>
+                    <p>Decorative background on login page</p>
+                </div>
+                <div class="tech-item">
+                    <strong>NetworkStatus</strong>
+                    <p>Connection banner</p>
+                </div>
+                <div class="tech-item">
+                    <strong>Logo</strong>
+                    <p>App logo with optional text</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hooks & Contexts Section -->
+        <section id="hooks" class="section">
+            <h2>🪝 Hooks & Contexts</h2>
+            
+            <h3>useAuth</h3>
+            <p>From <code>AuthContext</code></p>
+            <div class="info-card">
+                <code>user</code>, <code>loading</code>, <code>signInWithGoogle</code>, <code>signOut</code>
+            </div>
+
+            <h3>useTheme</h3>
+            <p>From <code>ThemeContext</code></p>
+            <div class="info-card">
+                <code>theme</code>, <code>setTheme</code>, <code>toggleTheme</code>
+            </div>
+
+            <h3>useBookmarks</h3>
+            <p>Takes <code>userId</code></p>
+            <div class="info-card">
+                Returns: <code>bookmarks</code>, <code>loading</code>, <code>error</code>, <code>addBookmark</code>, <code>updateBookmark</code>, <code>deleteBookmark</code>
+                <br><br>
+                Handles fetch, Realtime, BroadcastChannel, and CRUD operations
+            </div>
+        </section>
+
+        <!-- Migrations Section -->
+        <section id="migrations" class="section">
+            <h2>📦 Supabase Migrations</h2>
+            
+            <h3>Migration 1: Create Bookmarks Table</h3>
+            <p><code>20250216000000_create_bookmarks_table.sql</code></p>
+            <ul>
+                <li>Creates <code>bookmarks</code> table</li>
+                <li>Adds index on <code>user_id</code></li>
+                <li>Enables RLS</li>
+            </ul>
+
+            <h3>Migration 2: Add RLS Policies</h3>
+            <p><code>20250216000001_add_bookmarks_rls_policies.sql</code></p>
+            <ul>
+                <li>Policies for SELECT, INSERT, UPDATE, DELETE</li>
+                <li>All require <code>auth.uid() = user_id</code></li>
+            </ul>
+
+            <h3>Migration 3: Enable Realtime</h3>
+            <p><code>20250216000002_enable_bookmarks_realtime.sql</code></p>
+            <ul>
+                <li><code>ALTER TABLE bookmarks REPLICA IDENTITY FULL</code></li>
+                <li>Adds <code>bookmarks</code> to <code>supabase_realtime</code> publication</li>
+            </ul>
+        </section>
+
+        <!-- Setup Section -->
+        <section id="setup" class="section">
+            <h2>⚙️ Environment & Setup</h2>
+            
+            <h3>Environment Variables</h3>
+            <p>Create <code>.env.local</code> file:</p>
+            <pre><code>NEXT_PUBLIC_SUPABASE_URL=https://ehbszrtroztklynotbpd.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_KMfi6YHQCF4p9Qo4Ugxq5A_ksrG99Ii</code></pre>
+
+            <h3>Supabase Configuration</h3>
+            <ol class="step-list">
+                <li>Enable Google OAuth in Supabase Dashboard</li>
+                <li>Add redirect URL: <code>http://localhost:3000/auth/callback</code></li>
+                <li>Run migrations in order</li>
+            </ol>
+
+            <h3>Run the Application</h3>
+            <pre><code>npm install
+npm run dev</code></pre>
+            <p>Open <code>http://localhost:3000</code></p>
+        </section>
+
+        <!-- Demo Script Section -->
+        <section id="demo" class="section">
+            <h2>🎬 Demo Script</h2>
+            
+            <h3>Before the Demo</h3>
+            <ol class="step-list">
+                <li>Start the app: <code>npm run dev</code></li>
+                <li>Open: <code>http://localhost:3000</code></li>
+                <li>Optional: Open a second tab to show cross-tab sync</li>
+                <li>Optional: Open DevTools → Network tab to show API calls</li>
+            </ol>
+
+            <h3>Demo Flow (5 minutes)</h3>
+            
+            <h4>1. Introduction (30 seconds)</h4>
+            <div class="info-card">
+                <p>"Note Marks is a bookmark manager built with Next.js 16 and Supabase. Users sign in with Google, add bookmarks, and see them sync in real time across tabs and devices."</p>
+            </div>
+
+            <h4>2. Login Screen (30 seconds)</h4>
+            <p><strong>Show:</strong> Landing page with "Continue with Google"</p>
+            <div class="info-card">
+                <p>"The app starts on a login screen. We use Supabase Auth with Google OAuth. Clicking the button redirects to Google, then back to our callback route, which exchanges the code for a session and sets cookies."</p>
+            </div>
+            <p><strong>Do:</strong> Click "Continue with Google" and complete sign-in</p>
+
+            <h4>3. Dashboard & Add Bookmark (1 minute)</h4>
+            <p><strong>Show:</strong> Dashboard with "Add bookmark" form</p>
+            <div class="info-card">
+                <p>"After login, we see the dashboard with a sidebar and the main content. The layout is responsive: sidebar collapses on mobile and expands on desktop. Here we can add a bookmark with a URL and title."</p>
+            </div>
+            <p><strong>Do:</strong></p>
+            <ol>
+                <li>Enter URL: <code>https://github.com</code></li>
+                <li>Enter title: <code>GitHub</code></li>
+                <li>Click "Add bookmark"</li>
+            </ol>
+            <div class="info-card">
+                <p>"The bookmark is saved to Supabase PostgreSQL via PostgREST. Row Level Security ensures users only see and edit their own bookmarks."</p>
+            </div>
+
+            <h4>4. Edit & Delete (45 seconds)</h4>
+            <div class="info-card">
+                <p>"Each bookmark has edit and delete actions. Edit opens a modal; we update the record in the database. Delete uses optimistic UI: the item disappears immediately, then we call the API. If it fails, we refetch to restore the list."</p>
+            </div>
+
+            <h4>5. Real-Time Sync (1 minute)</h4>
+            <p><strong>Show:</strong> Two tabs side by side</p>
+            <div class="info-card">
+                <p>"Bookmarks sync in real time across tabs and devices. We use two mechanisms: Supabase Realtime for cross-device sync, and BroadcastChannel for same-browser tabs."</p>
+            </div>
+            <p><strong>Do:</strong></p>
+            <ol>
+                <li>Add a bookmark in Tab A</li>
+                <li>Point out that Tab B updates without refresh</li>
+                <li>(Optional) Edit or delete in Tab B and show Tab A updating</li>
+            </ol>
+
+            <h4>6. Settings — Theme (30 seconds)</h4>
+            <div class="info-card">
+                <p>"Settings lets us toggle light and dark mode. The theme is stored in localStorage and applied before the first paint to avoid a flash."</p>
+            </div>
+
+            <h4>7. Architecture Summary (1 minute)</h4>
+            <div class="info-card">
+                <p>"On the frontend we use Next.js App Router with React 19 and Tailwind CSS 4. The backend is Supabase: PostgreSQL, Auth, and Realtime. We have three Supabase clients: browser for components, server for route handlers, and middleware for session refresh. The bookmarks table has RLS so each user only accesses their own data. Realtime requires REPLICA IDENTITY FULL on the table so UPDATE and DELETE events include full row data for filtering."</p>
+            </div>
+        </section>
+
+        <!-- Quick Reference Section -->
+        <section id="quick-reference" class="section">
+            <h2>📋 Quick Reference - Key Points</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Topic</th>
+                        <th>One-liner</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Auth</strong></td>
+                        <td>Google OAuth via Supabase; callback exchanges code for session</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Data</strong></td>
+                        <td>PostgreSQL + PostgREST; RLS for per-user isolation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sync</strong></td>
+                        <td>Supabase Realtime + BroadcastChannel for cross-tab/device</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Theme</strong></td>
+                        <td>localStorage + inline script to prevent flash</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Network</strong></td>
+                        <td>navigator.onLine + Connection API for offline/slow detection</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Optimistic UI</strong></td>
+                        <td>Delete removes from UI first; refetch on error</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Note Marks Project Documentation</p>
+            <p style="margin-top: 10px; opacity: 0.8;">Built with Next.js 16, React 19, Tailwind CSS 4, and Supabase</p>
+        </div>
+    </footer>
+
+    <div class="scroll-top" id="scrollTop">↑</div>
+
+    <script>
+        // Smooth scroll to sections
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Scroll to top button
+        const scrollTop = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
